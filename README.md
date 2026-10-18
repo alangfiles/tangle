@@ -6,7 +6,7 @@ Web port of the Windows Phone "Tangle" puzzle. Move crossings to minimize the co
 npm install
 npm run dev      # dev server
 npm test         # engine tests
-npm run build    # type-check + production build into dist/
+npm run build    # type-check + production build into docs/
 npm run levels   # regenerate src/levels.json from scripts/topList
 ```
 
