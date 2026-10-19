@@ -139,6 +139,7 @@ function gameScreen(level: Level): void {
   const tangle = progress.tangle ? tangleFromString(progress.tangle) : initialTangle(level);
 
   const cornerText = el('span', {});
+  const cornerStats = el('span', { class: 'stats' });
   const timerText = el('span', {}, fmt(progress.elapsed));
   const victory = el('div', { class: 'victory' },
     el('div', { class: 'check' }, '✔'),
@@ -162,6 +163,7 @@ function gameScreen(level: Level): void {
 
   const showState = (cornersToGo: number, isWon: boolean) => {
     won = isWon;
+    cornerStats.textContent = `${level.minimalCorners + cornersToGo}/${level.minimalCorners} corners`;
     cornerText.className = isWon ? 'win' : '';
     cornerText.textContent = isWon ? 'You won!' : `${cornersToGo} corners to go`;
     victory.classList.toggle('on', isWon);
@@ -184,7 +186,11 @@ function gameScreen(level: Level): void {
   };
 
   app.append(
-    el('div', { class: 'bar' }, header(`level ${level.index}`), el('a', { href: '#/levels', class: 'small' }, '‹ levels')),
+    el('div', { class: 'bar' },
+      el('header', {},
+        el('p', { class: 'small' }, 'Tangle'),
+        el('div', { class: 'titlerow' }, el('h1', { class: 'title sm' }, `level ${level.index}`), cornerStats)),
+      el('a', { href: '#/levels', class: 'small' }, '‹ levels')),
     el('div', { class: 'game' }, svg, victory),
     el('div', { class: 'info' }, cornerText, reset, timerText),
   );
